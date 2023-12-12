@@ -15,9 +15,9 @@ class BaseModel(models.Model):
     is_delete = models.BooleanField(default=False)
     created_by = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="+")
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(null=True, default='0000')
     updated_by = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
-    updated_at = models.DateTimeField(null=True)
+    updated_at = models.DateTimeField(null=True, default='0000')
 
     class Meta:
         abstract = True
