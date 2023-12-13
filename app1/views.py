@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect
 from . models import StudentDetail
 from django.contrib.auth import authenticate, login, logout
+import datetime
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -12,19 +14,20 @@ def test_view(request):
 
 
 def test_view0(request):
-    student = StudentDetail.objects.all()
-    return render(request, 'app1/home.html', {'students': student})
+    st = StudentDetail.objects.all()
+    return render(request, 'app1/home.html', {'sts': st})
 
 
 def form_view(request):
     if request.method == 'POST':
-        email1 = request.POST.get('email')
+        email1 = request.POST['email']
         password1 = request.POST['password']
-        address1 = request.POST.get('address')
+        address1 = request.POST['address']
 
-        StudentDetail.objects.create(
-            email=email1, password=password1, address=address1)
-        return redirect('login')
+        user = User.objects.first()
+
+        StudentDetail.objects.create(email=email1, password=password1,
+                                     address=address1, created_by=user, created_at=datetime.datetime.now())
 
     return render(request, 'app1/form.html')
 

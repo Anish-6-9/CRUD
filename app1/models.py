@@ -14,10 +14,11 @@ class BaseModel(models.Model):
         max_length=32, unique=True, primary_key=True, default=generate_uuid)
     is_delete = models.BooleanField(default=False)
     created_by = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="+")
-    created_at = models.DateTimeField(null=True, default='0000')
-    updated_by = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
-    updated_at = models.DateTimeField(null=True, default='0000')
+        User, db_column="created_by", on_delete=models.PROTECT, related_name="+")
+    created_at = models.DateTimeField(null=True)
+    updated_by = models.ForeignKey(
+        User, db_column="updated_by", on_delete=models.PROTECT, null=True)
+    updated_at = models.DateTimeField(null=True)
 
     class Meta:
         abstract = True
