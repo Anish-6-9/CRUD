@@ -8,6 +8,11 @@
 <h1>Please fill the form</h1>
 <form method="POST" action="/form">
   {% csrf_token %}
+    {% if messages %}
+      {% for messsage in messages %}
+      <li>{{message}}</li>
+      {% endfor %}
+    {% endif %}
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputEmail4">Email</label>
