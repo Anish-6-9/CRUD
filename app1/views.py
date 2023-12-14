@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 # Create your views here.
 
+from .forms import TestForm
+
 
 def test_view(request):
     data = [{'name': 'ram', 'address': 'ktm'},
@@ -80,3 +82,16 @@ def delete_item(request, pk):
     students.is_delete = True
     students.save()
     return redirect('home')
+
+
+def django_form(request, pk):
+    if request.method == "POST":
+        data = TestForm(request.POST)
+        if data.is_valid():
+            name = data.cleaned_data['name']
+            email = data.cleaned_data['email']
+            password = data.cleaned_data['password']
+            print(data.cleaned_data)
+    else:
+        fn = TestForm()
+        return render(request, 'app1/django_form.html', {'form': fn})

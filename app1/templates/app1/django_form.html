@@ -1,0 +1,12 @@
+{% extends "app1/base.html" %}
+
+{% block title %}
+<title>Home page</title>
+{% endblock title %}
+
+{% block content %}
+<form method="POST" action="{% url 'dform' %}">
+    {{form}}
+    <button type="submit" class="btn btn-primary">click</button>
+</form>
+{% endblock content %}
